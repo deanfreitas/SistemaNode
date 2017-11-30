@@ -60,3 +60,4 @@ typings/
 .env
 .idea/
 package-lock.json
+SistemaNode.iml
