@@ -1,12 +1,16 @@
-const db = require('../mongo/mongo-wrapper');
+const mongoWrapper = require('../mongo/mongo-wrapper');
 
 const nameCollection = 'cadastro';
 
-const getOnly = async (name) => {
-    await db.collection(nameCollection).findOne({}, {name: name}, (err, result) => {
-        if(err) {
-            throw err;
+const getOne = async (nome, idade) => {
+    const db = await mongoWrapper();
+    await db.collection(nameCollection).findOne({}, {nome: nome, idade: idade}, (err, result) => {
+        if (result) {
+            return result;
         }
-
     });
+};
+
+module.exports = {
+    getOne: getOne,
 };

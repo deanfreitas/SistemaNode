@@ -6,18 +6,19 @@ const url = 'mongodb://' + host + ':' + port + '/integration_test';
 
 let db;
 
-const connect = MongoClient.connect(url, (err, database) => {
-    if (db) {
-        return db;
-    }
-
-    if(err) {
-        throw err;
-    }
-
-    db = database;
-
-    return db;
-});
+const connect = () => {
+    return new Promise((resolve, reject) => {
+        MongoClient.connect(url, (err, database) => {
+            if (err) {
+                reject(err);
+            }
+            if (db) {
+                resolve(db);
+            }
+            db = database;
+            resolve(db);
+        })
+    })
+};
 
 module.exports = connect;
