@@ -20,7 +20,17 @@ const insertOne = async (cadastro) => {
     })
 };
 
+const updateOne = async (cadastro, newCadastro) => {
+    const db = await mongoWrapper();
+    await db.collection(nameCollection).updateOne(cadastro, newCadastro, (err, result) => {
+        if(result) {
+            return result;
+        }
+    })
+};
+
 module.exports = {
     getOne: getOne,
     insertOne: insertOne,
+    updateOne: updateOne,
 };

@@ -16,19 +16,26 @@ const getCadastro = async (req, res) => {
 const saveCadastro = async (req, res) => {
     const cadastro = req.body.cadastro;
     let message;
+    let code;
 
     try {
         await mongoService.insertOne(cadastro);
-        res.status(201).send('User successfully registered');
+        return res.status(201).send('User successfully registered');
     } catch (err) {
         if (err.code === 11000) {
             message = 'E11000 duplicate key error collection';
+            code = 409;
         } else {
-            message = 'User error registering'
+            message = 'User error registering';
+            code = 500;
         }
 
-        return res.status(500).send(message);
+        return res.status(code).send(message);
     }
+};
+
+const updateCadastro = async () => {
+
 };
 
 module.exports = {
