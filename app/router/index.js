@@ -3,4 +3,4 @@ const router = express.Router();
 
 module.exports = router;
 
-require('./authenticate-route');
+require('./authenticate-router');

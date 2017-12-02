@@ -1,6 +1,6 @@
 const mongoWrapper = require('../mongo/mongo-wrapper');
 
-const nameCollection = 'cadastro';
+const nameCollection = 'register';
 
 const getOne = async (id) => {
     const db = await mongoWrapper();
@@ -11,19 +11,19 @@ const getOne = async (id) => {
     });
 };
 
-const insertOne = async (cadastro) => {
+const insertOne = async (register) => {
     const db = await mongoWrapper();
-    await db.collection(nameCollection).insertOne(cadastro, (err, result) => {
-        if(result) {
+    await db.collection(nameCollection).insertOne(register, (err, result) => {
+        if (result) {
             return result;
         }
     })
 };
 
-const updateOne = async (cadastro, newCadastro) => {
+const updateOne = async (id, newRegister) => {
     const db = await mongoWrapper();
-    await db.collection(nameCollection).updateOne(cadastro, newCadastro, (err, result) => {
-        if(result) {
+    await db.collection(nameCollection).updateOne({id: id}, newRegister, (err, result) => {
+        if (result) {
             return result;
         }
     })
