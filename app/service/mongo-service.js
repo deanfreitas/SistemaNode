@@ -4,33 +4,27 @@ const nameCollection = 'register';
 
 const getOne = async (id) => {
     const db = await mongoWrapper();
-    await db.collection(nameCollection).findOne({}, {id: id}, (err, result) => {
-        if (result) {
-            return result;
-        }
-    });
+    return await db.collection(nameCollection).findOne({id: id});
 };
 
 const insertOne = async (register) => {
     const db = await mongoWrapper();
-    await db.collection(nameCollection).insertOne(register, (err, result) => {
-        if (result) {
-            return result;
-        }
-    })
+    return await db.collection(nameCollection).insertOne(register);
 };
 
-const updateOne = async (id, newRegister) => {
+const updateOne = async (newRegister) => {
     const db = await mongoWrapper();
-    await db.collection(nameCollection).updateOne({id: id}, newRegister, (err, result) => {
-        if (result) {
-            return result;
-        }
-    })
+    return await db.collection(nameCollection).updateOne({id: newRegister.id}, {$set: newRegister});
+};
+
+const deleteOne = async (id) => {
+    const db = await mongoWrapper();
+    return await db.collection(nameCollection).deleteOne({id: id});
 };
 
 module.exports = {
     getOne: getOne,
     insertOne: insertOne,
     updateOne: updateOne,
+    deleteOne: deleteOne,
 };
